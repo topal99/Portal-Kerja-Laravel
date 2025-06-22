@@ -1,0 +1,183 @@
+// resources/scss/app.scss
+@import 'bootstrap/scss/bootstrap';
+
+$primary:       #0d6efd;  // Biru modern yang bagus (Anda bisa ganti dengan kode hex warna lain)
+$secondary:     #6c757d;  // Abu-abu standar
+$success:       #198754;  // Hijau
+$info:          #0dcaf0;  // Biru muda
+$warning:       #ffc107;  // Kuning
+$danger:        #dc3545;  // Merah
+$light:         #f8f9fa;  // Latar belakang abu-abu sangat terang
+$dark:          #212529;  // Hitam lembut
+
+// Menggunakan font default yang sudah kita impor dari Google Fonts (Figtree)
+$font-family-sans-serif: 'Figtree', sans-serif;
+
+// 2. Import file utama Bootstrap. Ia akan menggunakan variabel yang sudah kita definisikan di atas.
+@import 'bootstrap/scss/bootstrap';
+
+.application-logo {
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    font-weight: 100;
+    font-style: normal;
+            // Atur warna saat kursor mouse di atasnya (hover)
+        &:hover {
+            color: rgba(255, 255, 255, 0.8) !important; // Sedikit redup saat hover
+        }
+}
+
+// Memberi warna latar belakang utama pada body
+body {
+    background-color: $light;
+}
+
+.hero-section {
+    position: relative;
+    color: white;
+    overflow: hidden;
+
+    // Warna dasar jika gambar gagal dimuat (ini tetap berguna)
+    background-color: #2c3e50; 
+    
+    // HAPUS BARIS background-image DARI SINI
+    
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    // ::before untuk overlay tetap sama
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+    }
+
+    // .container-fluid untuk konten tetap sama
+    > .container-fluid {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+// Menambahkan efek hover yang halus pada semua kartu
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.navbar-transparent {
+    position: absolute; // Ini properti kuncinya!
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent !important; // Paksa latar belakang menjadi transparan
+    z-index: 1030; // Pastikan navbar selalu berada di lapisan paling atas
+}
+
+// Kita targetkan secara spesifik navbar yang memiliki KEDUA class ini
+.navbar-dark.navbar-transparent {
+    
+    // Target semua jenis link di dalam navbar ini
+    .navbar-nav .nav-link, 
+    .navbar-brand,
+    .dropdown-toggle {
+        color: white !important; // Paksa menjadi putih terang
+        transition: color 0.2s ease-in-out;
+
+        // Atur warna saat kursor mouse di atasnya (hover)
+        &:hover {
+            color: rgba(255, 255, 255, 0.8) !important; // Sedikit redup saat hover
+        }
+    }
+
+    // Atur warna untuk link yang sedang aktif agar lebih menonjol
+    .navbar-nav .nav-link.active {
+        color: white !important;
+        font-weight: bold; // Tebalkan teks untuk link aktif
+    }
+
+    // Khusus untuk tombol logout di dalam dropdown
+    .dropdown-menu .dropdown-item {
+        color: #212529 !important; // Biarkan teks di dalam dropdown tetap gelap agar terbaca
+        
+        &:hover {
+            color: #1e2125 !important;
+            background-color: #f8f9fa;
+        }
+    }
+}
+
+// Kustomisasi Section Testimonial
+.testimonial-section-v2 {
+    .testimonial-card-v2 {
+        border-radius: 10px;
+        transition: all 0.3s ease; // Transisi hover
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+
+        .testimonial-quote {
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid #e9ecef; // Garis pemisah vertikal
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            // Aturan untuk ikon kutipan
+            .bi-quote {
+                position: absolute;
+                top: -10px;
+                left: -5px;
+                font-size: 2.5rem;
+                color: #e9ecef; // Warna ikon yang sangat lembut
+                z-index: 1;
+            }
+
+            // Aturan untuk teks kutipan
+            p {
+                position: relative;
+                z-index: 2; // Pastikan teks di atas ikon
+                font-size: 0.95rem;
+                color: #555;
+            }
+        }
+    }
+}
+
+// Aturan ini hanya berlaku untuk layar dengan lebar maksimal 991.98px
+@media (max-width: 991.98px) {
+    
+    // Kita targetkan secara spesifik navbar transparan kita
+    .navbar-transparent {
+        position: relative; // Ganti 'absolute' menjadi 'relative' agar kembali ke alur normal
+        background-color: #6c757d !important; // Beri latar belakang putih solid
+    }
+
+    // Karena latar belakangnya menjadi putih, kita ubah kembali warna teksnya menjadi gelap
+    // agar bisa terbaca.
+    .navbar-transparent .navbar-nav .nav-link, 
+    .navbar-transparent .navbar-brand,
+    .navbar-transparent .dropdown-toggle {
+        color: #212529 !important; // Warna teks default Bootstrap untuk navbar-light
+
+        &:hover {
+            color: rgba(0, 0, 0, 0.7) !important;
+        }
+    }
+
+    // Atur ulang warna ikon hamburger menu agar terlihat di latar putih
+    .navbar-transparent .navbar-toggler-icon {
+        // Ini adalah variabel default Bootstrap untuk ikon toggler di navbar-light
+        background-image: var(--bs-navbar-toggler-icon-bg);
+    }
+}
