@@ -60,41 +60,9 @@ Route::middleware(['auth', 'verified'])->prefix('seeker')->name('seeker.')->grou
     Route::post('/jobs/{jobListing}/apply', [JobApplicationController::class, 'store'])->name('jobs.apply');
 });
 
-Route::get('/test-pexels', function () {
-    // GANTI DENGAN API KEY ANDA YANG ASLI
-    $apiKey = 'qYeufKXbLVmUJmm1tktqFLEiUQXiOCbMke0ZVGtwpmasaL4OsaeKL1yM'; 
-
-    $category = 'office'; // Kategori yang ingin Anda cari
-    $perPage = 1000; // Jumlah gambar yang ingin diambil
-
-    // Mengirim request ke API Pexels
-    $response = Http::withHeaders([
-        'Authorization' => $apiKey
-    ])->get("https://api.pexels.com/v1/search", [
-        'query' => $category,
-        'per_page' => $perPage
-    ]);
-
-    // Cek jika request berhasil
-    if ($response->successful()) {
-        $data = $response->json();
-
-        // Tampilkan gambar-gambar yang didapat
-        foreach ($data['photos'] as $photo) {
-            echo "<div>";
-            echo "<h3>Fotografer: {$photo['photographer']}</h3>";
-            // 'medium' adalah salah satu dari banyak ukuran yang tersedia
-            echo "<img src='{$photo['src']['medium']}' width='300' />"; 
-            echo "<hr>";
-            echo "</div>";
-        }
-
-    } else {
-        // Tampilkan error jika gagal
-        return "Gagal mengambil data dari Pexels. Status: " . $response->status();
-    }
+Route::get('/health', function () {
+    return response('OK', 200);
 });
-
 
 // --- RUTE AUTENTIKASI DARI BREEZE ---
 require __DIR__.'/auth.php';

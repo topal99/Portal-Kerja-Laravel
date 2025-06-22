@@ -1,0 +1,60 @@
+services:
+  # 1. Layanan Database PostgreSQL
+  - type: pserv
+    name: portal-kerja-db
+    databaseName: portal_kerja
+    user: portal_kerja_user
+    plan: free # Gunakan paket gratis
+
+  # 2. Layanan Web (Aplikasi Laravel Utama)
+  - type: web
+    name: portal-kerja-web
+    runtime: php
+    plan: free # Gunakan paket gratis
+    buildCommand: "./build.sh"
+    startCommand: "php artisan serve --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: APP_URL
+        # Ganti dengan URL yang akan diberikan oleh Render setelah deployment pertama
+        value: https://NAMA_APP_ANDA.onrender.com 
+      - key: APP_KEY
+        # Jalankan 'php artisan key:generate --show' di lokal, lalu paste hasilnya di sini
+        value: base64:K267KxOylxt3s1wqSH4EdfP35HPqaKXIWfeUqOoIGMI= 
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: pgsql # Gunakan PostgreSQL
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: portal-kerja-db
+          property: connectionString
+    # Disk untuk menyimpan file upload (logo, cv, dll)
+    disks:
+      - name: storage
+        mountPath: /var/www/html/storage/app/public
+        sizeGB: 1
+
+  # 3. Layanan Background Worker (Untuk Queue & Notifikasi Email)
+  - type: worker
+    name: portal-kerja-worker
+    runtime: php
+    plan: free # Gunakan paket gratis
+    startCommand: "php artisan queue:work --queue=default --tries=3"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: portal-kerja-db
+          property: connectionString
+      - key: QUEUE_CONNECTION # Pastikan worker juga menggunakan database queue
+        value: database
