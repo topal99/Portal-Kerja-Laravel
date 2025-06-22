@@ -60,9 +60,5 @@ Route::middleware(['auth', 'verified'])->prefix('seeker')->name('seeker.')->grou
     Route::post('/jobs/{jobListing}/apply', [JobApplicationController::class, 'store'])->name('jobs.apply');
 });
 
-Route::get('/health', function () {
-    return response('OK', 200);
-});
-
 // --- RUTE AUTENTIKASI DARI BREEZE ---
 require __DIR__.'/auth.php';
