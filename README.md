@@ -7,54 +7,160 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Proyek Portofolio: Portal Kerja Full-Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sebuah aplikasi web portal kerja lengkap yang dibangun dari awal menggunakan Laravel 11 dan Bootstrap 5. Proyek ini dirancang untuk menjadi platform fungsional yang menghubungkan pencari kerja dengan perusahaan, dilengkapi dengan sistem multi-peran, panel admin yang kuat, dan arsitektur backend modern.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Proyek ini mendemonstrasikan implementasi fitur-fitur penting seperti autentikasi, otorisasi berbasis policy, manajemen data CRUD, RESTful API, hingga tugas latar belakang menggunakan queue.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Publik (Untuk Semua Pengunjung)
+- ✅ Homepage Dinamis: Menampilkan daftar lowongan terbaru dengan pagination.
+- ✅ Pencarian & Filter: Fitur pencarian berdasarkan kata kunci, lokasi, dan tipe pekerjaan.
+- ✅ Halaman Detail Lowongan: Tampilan informasi lengkap pekerjaan, termasuk logo dan detail perusahaan.
+- ✅ Halaman Profil Publik Perusahaan: Melihat profil detail dan semua lowongan aktif dari sebuah perusahaan.
+- ✅ Desain Responsif: Tampilan optimal di berbagai perangkat (desktop, tablet, mobile).
+- ✅ UI Cerdas: Memberi tanda visual pada lowongan yang sudah dilamar oleh pengguna yang sedang login.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Pencari Kerja (Seeker)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- ✅ Autentikasi Lengkap: Alur registrasi, login, dan verifikasi email yang aman.
+- ✅ Dashboard Informatif: Ringkasan statistik lamaran terkirim dan diterima.
+- ✅ Manajemen Profil: Mengedit informasi pribadi, keahlian, serta mengunggah/memperbarui foto profil dan CV (PDF).
+- ✅ Proses Melamar Kerja: Form lamaran interaktif (modal) dengan opsi untuk menyertakan surat lamaran (cover letter).
+- ✅ Riwayat Lamaran: Melacak semua lamaran yang telah dikirim beserta status terkininya (Terkirim, Dilihat, Diterima, Ditolak).
 
-## Laravel Sponsors
+### Perusahaan (Company)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- ✅ Autentikasi Terpisah: Alur registrasi dan login khusus untuk peran perusahaan.
+- ✅ Dashboard Fungsional: Statistik kunci seperti jumlah lowongan aktif dan pelamar baru.
+- ✅ Manajemen Lowongan (CRUD): Kemampuan penuh untuk membuat, melihat, mengedit, dan menghapus lowongan pekerjaan milik sendiri.
+- ✅ Manajemen Pelamar: Melihat daftar pelamar untuk setiap lowongan, lengkap dengan akses ke profil, CV, dan surat lamaran mereka.
+- ✅ Proses Rekrutmen: Kemampuan untuk mengubah status lamaran seorang kandidat, yang secara otomatis mengirimkan notifikasi email.
 
-### Premium Partners
+### Panel Admin (Filament)
+- ✅ Dasbor Admin Terproteksi: Hanya bisa diakses oleh pengguna dengan peran admin.
+- ✅ Manajemen Data Penuh (CRUD): Mengelola semua data master di aplikasi (Users, Companies, Seekers, Job Listings, dll).
+- ✅ Antarmuka Modern & Reaktif yang dibangun di atas TALL Stack.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Backend & Arsitektur
 
-## Contributing
+- ✅ Otorisasi Kuat: Menggunakan Laravel Policies untuk memastikan pengguna hanya bisa mengakses dan memodifikasi data yang menjadi haknya.
+- ✅ RESTful API: Menyediakan endpoint API untuk data lowongan, diformat secara profesional menggunakan API Resources.
+- ✅ Tugas Latar Belakang (Queues): Menggunakan sistem Queue Laravel untuk menangani pengiriman email notifikasi secara asinkron, meningkatkan performa dan responsivitas aplikasi.
+- ✅ Database Seeding & Factories: Memungkinkan pengisian database dengan data palsu yang realistis untuk keperluan testing dan demonstrasi.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Installation
+### Prasyarat
+- Backend: PHP 8.2+, Laravel 11
+- Panel Admin: Laravel Filament 3.x
+- Frontend: HTML5, CSS3, SASS, JavaScript, Bootstrap 5
+- Build Tool: Vite.js
+- Database: MySQL / PostgreSQL
+- Lingkungan Development Lokal: Laragon, Composer, NPM, Git
+- Testing Email Lokal: Mailpit
 
-## Security Vulnerabilities
+### 1. Kloning Repositori:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+https://github.com/topal99/portal-kerja-laravel.git
+```
+
+
+### 2. Instalasi Dependensi:
+
+
+```bash
+composer install
+npm install
+```
+
+### 3. Konfigurasi Environment:
+
+- Salin file .env.example menjadi .env: copy .env.example .env (di Windows) atau cp .env.example .env (di Mac/Linux).
+- Generate kunci aplikasi: php artisan key:generate
+
+
+### 4. Konfigurasi Database:
+- Buka Laragon dan buat database baru melalui HeidiSQL atau PhpMyAdmin, beri nama misalnya portal_kerja.
+- Buka file .env dan sesuaikan pengaturan database Anda:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=portal_kerja
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Migrasi & Seeding Database:
+Perintah ini akan membuat semua tabel dan mengisinya dengan data palsu yang siap digunakan.
+
+```bash
+php artisan migrate:fresh --seed
+```
+- Setelah seeding, akun admin default adalah admin@gmail.com dengan password password.
+- Halaman admin dapat diakses di https://127.0.0.1:8000/admin
+
+
+### 6. Kompilasi Aset Frontend:
+Jalankan perintah ini di satu terminal dan biarkan tetap berjalan.
+
+```bash
+npm run dev
+```
+
+### 7. Jalankan Server Development:
+
+Buka terminal baru dan jalankan server Laravel.
+
+
+```bash
+php artisan serve
+```
+
+### 8. Jalankan Queue Worker:
+Buka terminal baru lainnya untuk memproses tugas latar belakang seperti notifikasi email.
+
+
+```bash
+php artisan queue:work
+```
+
+### 9. Akses Aplikasi:
+
+- Aplikasi Utama: http://127.0.0.1:8000
+- Panel Admin: http://127.0.0.1:8000/admin
+- Inbox Email Lokal (Mailpit): http://localhost:8025
+
+
+
+
+
+
+
+
+## Potensi Pengembangan Selanjutnya
+
+- Implementasi pencarian yang lebih canggih menggunakan Laravel Scout dengan driver seperti Meilisearch atau Algolia.
+- Sistem langganan (subscription) untuk perusahaan yang ingin memposting lebih banyak lowongan.
+- Notifikasi real-time menggunakan Laravel Reverb (WebSockets).
+- Dashboard analitik untuk admin dan perusahaan.
+- Deployment ke server produksi menggunakan platform seperti Render.com atau VPS dengan Laravel Forge.
+
+
+
+
+
+
+
+
+
 
 ## License
 
