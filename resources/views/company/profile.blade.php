@@ -25,7 +25,17 @@
 
                     {{-- Gunakan Grid System Bootstrap untuk membuat 2 kolom --}}
                         {{-- ===== KOLOM KIRI: INFORMASI UTAMA (Lebih Lebar) ===== --}}
-
+                            <div class="mb-4">
+                                <label for="logo" class="form-label">Logo Perusahaan</label>
+                                @if ($profile->logo)
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/' . $profile->logo) }}" alt="Logo saat ini" class="img-thumbnail" width="120">
+                                    </div>
+                                @endif
+                                <input class="form-control" type="file" id="logo" name="logo">
+                                <div class="form-text">Kosongkan jika tidak ingin mengganti logo.</div>
+                            </div>
+                            
                             <div class="mb-4">
                                 <label for="company_name" class="form-label">Nama Perusahaan</label>
                                 <input type="text" class="form-control form-control-lg" id="company_name" name="company_name" value="{{ old('company_name', $profile->company_name) }}" required>
@@ -39,19 +49,7 @@
                             <div class="mb-4">
                                 <label for="address" class="form-label">Alamat Lengkap</label>
                                 <textarea class="form-control" id="address" name="address" rows="4">{{ old('address', $profile->address) }}</textarea>
-                            </div>
-
-                        {{-- ===== KOLOM KANAN: BRANDING & DESKRIPSI ===== --}}
-                            <div class="mb-4">
-                                <label for="logo" class="form-label">Logo Perusahaan</label>
-                                @if ($profile->logo)
-                                    <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $profile->logo) }}" alt="Logo saat ini" class="img-thumbnail" width="120">
-                                    </div>
-                                @endif
-                                <input class="form-control" type="file" id="logo" name="logo">
-                                <div class="form-text">Kosongkan jika tidak ingin mengganti logo.</div>
-                            </div>
+                            </div>            
 
                             <div class="mb-4">
                                 <label for="description" class="form-label">Deskripsi Perusahaan</label>

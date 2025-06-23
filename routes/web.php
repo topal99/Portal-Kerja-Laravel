@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController; // Ini akan kita hapus, jadi tidak perlu lagi
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
 use App\Http\Controllers\Seeker\DashboardController as SeekerDashboardController;
-use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\Company\JobListingController as CompanyJobListingController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Seeker\CvController; // Import
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'verified'])->prefix('seeker')->name('seeker.')->grou
     Route::get('/applications', [SeekerDashboardController::class, 'applications'])->name('applications');
     // Rute melamar dipindahkan ke sini agar lebih aman dan logis
     Route::post('/jobs/{jobListing}/apply', [JobApplicationController::class, 'store'])->name('jobs.apply');
+    Route::post('/cv', [CvController::class, 'store'])->name('cv.store');
+    Route::delete('/cv/{cv}', [CvController::class, 'destroy'])->name('cv.destroy');
+
 });
 
 // --- RUTE AUTENTIKASI DARI BREEZE ---

@@ -42,4 +42,9 @@ class SeekerProfile extends Model
     {
         return $this->hasMany(JobApplication::class);
     }
+
+    public function cvs()
+    {
+        return $this->hasMany(Cv::class);
+    }
 }

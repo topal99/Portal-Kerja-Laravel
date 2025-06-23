@@ -18,7 +18,7 @@
                     <h1 class="h2 mb-1">{{ $job->title }}</h1>
                     <h5 class="fw-normal text-muted">
                         <a href="{{ route('companies.show', $job->companyProfile) }}" class="text-decoration-none">{{ $job->companyProfile->company_name }}</a>
-                    </h5>                
+                    </h5>
             </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                                         <span>{{ $job->salary_range ?? 'Rahasia' }}</span>
                                     </li>
                                 </ul>
-                                
+
                                 @auth
                                     @if(auth()->user()->role === 'seeker')
                                         @if($hasApplied)
@@ -103,13 +103,25 @@
                 </div>
                 <form action="{{ route('seeker.jobs.apply', $job) }}" method="POST">
                     @csrf
+
                     <div class="modal-body">
-                        <p>Anda akan melamar menggunakan profil dan CV yang sudah Anda unggah. Anda bisa menambahkan surat lamaran singkat di bawah ini.</p>
+                        <div class="mb-3">
+                                <label for="cv_id" class="form-label">Pilih CV yang Akan Dikirim</label>
+                                <select name="cv_id" id="cv_id" class="form-select" required>
+                                    <option value="" disabled selected>-- Pilih salah satu CV --</option>
+                                    @foreach (auth()->user()->seekerProfile->cvs as $cv)
+                                        <option value="{{ $cv->id }}">{{ $cv->file_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <hr>
+
                         <div class="mb-3">
                             <label for="cover_letter" class="form-label">Surat Lamaran (Opsional)</label>
                             <textarea class="form-control" name="cover_letter" id="cover_letter" rows="8">{{ old('cover_letter') }}</textarea>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Kirim Lamaran</button>

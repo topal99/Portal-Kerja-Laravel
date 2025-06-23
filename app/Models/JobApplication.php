@@ -19,6 +19,7 @@ class JobApplication extends Model
         'seeker_profile_id',
         'cover_letter',
         'status',
+        'cv_id',
     ];
 
     /**
@@ -48,5 +49,10 @@ class JobApplication extends Model
     public function seekerProfile()
     {
         return $this->belongsTo(SeekerProfile::class);
+    }
+
+    public function cv()
+    {
+        return $this->belongsTo(Cv::class);
     }
 }

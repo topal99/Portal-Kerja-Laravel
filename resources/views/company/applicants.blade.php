@@ -83,12 +83,15 @@
                             @else
                                 <img src="https://via.placeholder.com/150" alt="Foto Profil" class="img-thumbnail rounded-circle mb-3">
                             @endif
-                            
-                            @if ($application->seekerProfile->resume_path)
-                                <a href="{{ asset('storage/' . $application->seekerProfile->resume_path) }}" target="_blank" class="btn btn-primary w-100">Download CV (PDF)</a>
+
+                            @if ($application->cv)
+                                <a href="{{ asset('storage/' . $application->cv->file_path) }}" target="_blank" class="btn btn-primary w-100">
+                                    Download CV ({{ $application->cv->file_name }})
+                                </a>
                             @else
-                                <p class="text-muted">CV tidak tersedia.</p>
+                                <p class="text-muted">CV tidak dilampirkan.</p>
                             @endif
+
                         </div>
                         <div class="col-md-8">
                             <h5>Informasi Kontak</h5>
