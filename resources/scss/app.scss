@@ -154,6 +154,47 @@ body {
     }
 }
 
+// Memberi gaya pada menu dropdown utama
+.dropdown-menu {
+    border-radius: 0.5rem; // Sudut lebih tumpul
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+// Header di dalam dropdown
+.dropdown-header-profile {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa; // Latar belakang abu-abu lembut
+}
+
+// Styling untuk setiap item menu
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+
+    // Ikon di dalam item menu
+    .fa-fw {
+        width: 1.25em; // Memastikan lebar ikon konsisten
+        text-align: center;
+    }
+}
+
+// Styling khusus untuk tombol logout di dalam dropdown
+form.dropdown-item {
+    padding: 0; // Hapus padding dari form
+    
+    button {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem; // Beri padding pada tombolnya
+        
+        &:hover {
+            background-color: #f8f9fa; // Efek hover
+        }
+    }
+}
+
 // Aturan ini hanya berlaku untuk layar dengan lebar maksimal 991.98px
 @media (max-width: 991.98px) {
     
