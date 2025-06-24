@@ -15,29 +15,30 @@ class DashboardController extends Controller
         // Ambil profil perusahaan dari user yang sedang login
         $companyProfile = auth()->user()->companyProfile;
 
-        // Jika karena suatu alasan profil belum ada, arahkan ke halaman edit profil
         if (!$companyProfile) {
             return redirect()->route('company.profile.edit')->with('warning', 'Harap lengkapi profil perusahaan Anda terlebih dahulu.');
         }
 
-        // 1. Hitung total lowongan yang statusnya 'open' milik perusahaan ini
+        // Hitung total lowongan yang statusnya 'open' milik perusahaan ini
         $totalActiveJobs = $companyProfile->jobListings()
-                                           ->where('status', 'open')
-                                           ->count();
+                                        ->where('status', 'open')
+                                        ->count();
+        
+        // Definisikan status-status final yang tidak kita hitung sebagai pelamar aktif
+        $finalStatuses = ['Accepted', 'Rejected'];
 
-        // 2. Hitung total pelamar yang statusnya 'sent' (baru masuk)
-        // Kita menggunakan whereHas untuk memfilter lamaran berdasarkan lowongan milik perusahaan ini
+        // Hitung semua pelamar yang statusnya BUKAN bagian dari status final
         $totalNewApplicants = JobApplication::whereHas('jobListing', function ($query) use ($companyProfile) {
                                     $query->where('company_profile_id', $companyProfile->id);
                                 })
-                                ->where('status', 'sent')
+                                ->whereNotIn('status', $finalStatuses)
                                 ->count();
         
         return view('company.dashboard', [
             'totalActiveJobs' => $totalActiveJobs,
             'totalNewApplicants' => $totalNewApplicants
         ]);
-    }   
+    }
     
     // === METHOD UNTUK MENAMPILKAN HALAMAN PROFIL ===
     public function editProfile()

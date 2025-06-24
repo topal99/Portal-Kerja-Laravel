@@ -34,13 +34,25 @@
                                         <td>{{ $application->created_at->format('d M Y, H:i') }}</td>
                                         <td class="text-center align-middle">
                                             @switch($application->status)
-                                                @case('accepted')
+                                                @case('Psychotest')
+                                                    <span class="badge bg-success text-capitalize">Tes Psikotes</span>
+                                                    @break
+                                                @case('Interview')
+                                                    <span class="badge bg-success text-capitalize">Wawancara HRD</span>
+                                                    @break
+                                                @case('Offering')
+                                                    <span class="badge bg-success text-capitalize">Penawaran Kontrak</span>
+                                                    @break
+                                                @case('Accepted')
                                                     <span class="badge bg-success text-capitalize">Diterima</span>
                                                     @break
-                                                @case('rejected')
+                                                @case('Applied')
+                                                    <span class="badge bg-success text-capitalize">Terkirim - status awal saat seeker melamar</span>
+                                                    @break
+                                                @case('Rejected')
                                                     <span class="badge bg-danger text-capitalize">Ditolak</span>
                                                     @break
-                                                @case('viewed')
+                                                @case('Reviewed')
                                                     <span class="badge bg-info text-capitalize">Dilihat</span>
                                                     @break
                                                 @default
@@ -116,10 +128,16 @@
                         @method('PUT')
                         <div class="input-group">
                             <select name="status" class="form-select">
-                                <option value="viewed" {{ $application->status == 'viewed' ? 'selected' : '' }}>Sudah Dilihat</option>
-                                <option value="accepted" {{ $application->status == 'accepted' ? 'selected' : '' }}>Terima</option>
-                                <option value="rejected" {{ $application->status == 'rejected' ? 'selected' : '' }}>Tolak</option>
-                            </select>
+                                @php
+                                    $stages = ['Applied', 'Reviewed', 'Psychotest', 'Interview', 'Offering', 'Accepted', 'Rejected'];
+                                @endphp
+                                @foreach ($stages as $stage)
+                                    <option value="{{ $stage }}" {{ $application->status == $stage ? 'selected' : '' }}>
+                                        {{-- Mengubah teks agar lebih ramah dibaca --}}
+                                        @if($stage === 'Applied') Terkirim @else {{ $stage }} @endif
+                                    </option>
+                                @endforeach
+                            </select>                            
                             <button type="submit" class="btn btn-success">Update Status</button>
                         </div>
                     </form>

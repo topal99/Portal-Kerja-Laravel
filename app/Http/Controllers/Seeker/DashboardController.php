@@ -99,6 +99,12 @@ class DashboardController extends Controller
                                 ->latest()
                                 ->get();
 
-        return view('seeker.applications', ['applications' => $applications]);
+        $stages = ['Applied', 'Reviewed', 'Psychotest', 'Interview', 'Offering', 'Accepted'];
+
+        return view('seeker.applications', [
+            'applications' => $applications,
+            'stages' => $stages
+        ]);
+
     }
 }

@@ -8,6 +8,7 @@ use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 
 class JobApplicationController extends Controller
 {
@@ -62,9 +63,11 @@ class JobApplicationController extends Controller
     {
         // Otorisasi menggunakan Policy
         $this->authorize('update', $application);
+        $allowedStatuses = ['Applied', 'Reviewed', 'Psychotest', 'Interview', 'Offering', 'Accepted', 'Rejected'];
 
         $validated = $request->validate([
-            'status' => 'required|string|in:viewed,accepted,rejected',
+            // Gunakan Rule::in untuk validasi dari array
+            'status' => ['required', 'string', Rule::in($allowedStatuses)],
         ]);
 
         $oldStatus = $application->status;
@@ -72,7 +75,8 @@ class JobApplicationController extends Controller
         $application->update(['status' => $validated['status']]);
 
         // Kondisi untuk mengirim notifikasi
-        if (in_array($validated['status'], ['accepted', 'rejected']) && $validated['status'] !== $oldStatus) {
+        if (in_array($validated['status'], ['Applied', 'Reviewed', 'Psychotest', 'Interview', 'Offering', 'Accepted', 'Rejected'])
+        && $validated['status'] !== $oldStatus) {
 
             $applicantUser = $application->seekerProfile->user;
 
