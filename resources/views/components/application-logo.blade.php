@@ -4,7 +4,7 @@
 
 {{-- Jika ini adalah halaman utama, gunakan navbar transparan --}}
 @if ($isHomePage)
-    <a href="/" class="application-logo">PortalKerja</a>
+    <img class="logo-home" {{ $attributes }} src="{{ asset('storage/logos/logoku.png') }}" alt="Logo Portal Kerja">
 @else
     <img {{ $attributes }} src="{{ asset('storage/logos/logos.png') }}" alt="Logo Portal Kerja">
 @endif

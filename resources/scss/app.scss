@@ -195,6 +195,11 @@ form.dropdown-item {
     }
 }
 
+.logo-home {
+    width: 75px;
+    min-height: 75px;
+}
+
 .progress-tracker {
     display: flex;
     align-items: flex-start;
@@ -283,8 +288,8 @@ form.dropdown-item {
     
     // Kita targetkan secara spesifik navbar transparan kita
     .navbar-transparent {
-        position: relative; // Ganti 'absolute' menjadi 'relative' agar kembali ke alur normal
-        background-color: #6c757d !important; // Beri latar belakang putih solid
+        position: absolute; // Ganti 'absolute' menjadi 'relative' agar kembali ke alur normal
+        background-color: #000000 !important; // Beri latar belakang putih solid
     }
 
     // Karena latar belakangnya menjadi putih, kita ubah kembali warna teksnya menjadi gelap
