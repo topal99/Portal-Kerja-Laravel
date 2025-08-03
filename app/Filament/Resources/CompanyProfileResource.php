@@ -63,7 +63,8 @@ class CompanyProfileResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('logo'),
+                ImageColumn::make('logo')
+                    ->disk('public'), 
 
                 TextColumn::make('company_name')
                     ->searchable()

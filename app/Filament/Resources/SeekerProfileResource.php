@@ -63,8 +63,9 @@ class SeekerProfileResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('photo')->label('Foto'),
-
+                ImageColumn::make('photo')
+                                ->disk('public')
+                                ->label('Foto'),
                 TextColumn::make('full_name')
                     ->searchable()
                     ->label('Nama Lengkap'),

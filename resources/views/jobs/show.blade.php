@@ -105,23 +105,29 @@
                     @csrf
 
                     <div class="modal-body">
-                        <div class="mb-3">
-                                <label for="cv_id" class="form-label">Pilih CV yang Akan Dikirim</label>
-                                <select name="cv_id" id="cv_id" class="form-select" required>
-                                    <option value="" disabled selected>-- Pilih salah satu CV --</option>
-                                    @foreach (auth()->user()->seekerProfile->cvs as $cv)
-                                        <option value="{{ $cv->id }}">{{ $cv->file_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <hr>
-
+                        @auth {{-- Pastikan user sudah login --}}
+                            @if(auth()->user()->role === 'seeker') {{-- Cek apakah perannya adalah 'seeker' --}}
+                                <div class="mb-3">
+                                    <label for="cv_id" class="form-label">Pilih CV yang Akan Dikirim</label>
+                                    <select name="cv_id" id="cv_id" class="form-select" required>
+                                        <option value="" disabled selected>-- Pilih salah satu CV --</option>
+                                        {{-- Loop ini sekarang aman karena hanya dijalankan untuk seeker --}}
+                                        @foreach (auth()->user()->seekerProfile->cvs as $cv)
+                                            <option value="{{ $cv->id }}">{{ $cv->file_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <hr>
+                            @endif
+                        @endauth
+                        
+                        <p>Anda akan melamar menggunakan profil dan CV yang sudah Anda unggah. Anda bisa menambahkan surat lamaran singkat di bawah ini.</p>
                         <div class="mb-3">
                             <label for="cover_letter" class="form-label">Surat Lamaran (Opsional)</label>
                             <textarea class="form-control" name="cover_letter" id="cover_letter" rows="8">{{ old('cover_letter') }}</textarea>
                         </div>
                     </div>
-
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Kirim Lamaran</button>
